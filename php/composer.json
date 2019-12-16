@@ -1,0 +1,44 @@
+{
+  "name": "jenkins/php-test",
+  "description": "Small PHP project to integrate with Jenkins",
+  "type": "library",
+  "license": "BSD-3",
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Wefabric\\Cart\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "files": [ 
+      "vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest.php" 
+    ],
+    "psr-4": {
+      "Wefabric\\Cart\\": "src/",
+      "Wefabric\\Cart\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "secure-http": false
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://ci.local/nexus/repository/packagist"
+    },
+    {
+      "type": "composer",
+      "url": "http://ci.local/nexus/repository/composer"
+    },
+    {
+      "packagist.org": false
+    }
+  ],
+  "require": {
+    "ext-ctype": "*"
+  },
+  "require-dev": {
+    "mockery/mockery": "^1.2",
+    "phpunit/phpunit": "8.5.x-dev"
+  }
+}
