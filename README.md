@@ -60,8 +60,8 @@ following plugins:
 
 | Plugin             | Version | URL
 |--------------------|---------|-------------------------------------------------------------------------------------------------------|
-| Locale             | 1.4+    | [https://wiki.jenkins.io/display/JENKINS/Locale+Plugin](Locale plugin)                                |
-| SonarQube Scanner  | 2.10+   | [https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins/](SonarScanner for Jenkins) |
+| Locale             | 1.4+    | [Locale plugin](https://wiki.jenkins.io/display/JENKINS/Locale+Plugin)                                |
+| SonarQube Scanner  | 2.10+   | [SonarScanner for Jenkins](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins/) |
 
 Be sure to click the **Nu downloaden en installeren tijdens herstart** button. While installing the plugins you can 
 check the checkbox that will automatically restart Jenkins for you. The following sections are based on Jenkins whose 
