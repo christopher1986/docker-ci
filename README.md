@@ -1,2 +1,2 @@
-# docker-ci
-A local continuous integration environment
+# php-jenkins
+Spike implementation to use CI/CD with a PHP project 
