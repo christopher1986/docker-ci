@@ -41,7 +41,7 @@ when SonarQube is started for the first time:
 I highly recommend that you change the default password if you are going to use SonarQube in production or if this 
 particular SonarQube instance will be made accessible to other developers.
 
-After you have signed into SonarQube go to My **Account** > **Security** > **Generate Tokens**. Enter a new Token Name
+After you have signed into SonarQube go to **My Account** > **Security** > **Generate Tokens**. Enter a new token name
 and hit the generate button. Be sure to copy the token because you won't be able to see it again! 
 
 ### Jenkins
@@ -69,8 +69,8 @@ On a Windows machine you will therefore need to run the two commands separately:
 ```
 
 Use this password to unlock Jenkins and install the suggested plugins which the community finds most useful.
-Some additional plugins can be downloaded from **Manager Jenkins** > **Manage Plugins**. On the plugin manager page 
-be sure to activate the **Available** tab and install the following plugins:
+Some additional plugins can be downloaded from **Manage Jenkins** > **Manage Plugins**. On the plugin page be
+sure to activate the **Available** tab and install the following plugins:
 
 | Plugin             | Version | URL
 |--------------------|---------|-------------------------------------------------------------------------------------------------------|
@@ -78,9 +78,9 @@ be sure to activate the **Available** tab and install the following plugins:
 | SonarQube Scanner  | 2.10+   | [SonarScanner for Jenkins](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins/) |
 
 Simply click on the **Download now and install after restart** button. While the plugins are being installed you can 
-also check the checkbox that will automatically restart Jenkins once the plugins have been downloaded. I highly recommend 
-that you change the locale of you Jenkins instance to English. Doing so will help you to understand how to configure 
-the SonarQube Scanner.
+also check the checkbox that will automatically restart Jenkins once the plugins have been downloaded. Changing the
+Jenkins locale to English will help you to setup the SonarQube Scanner without constantly translating this guide to
+your own language.
 
 After installing both plugins head back to the Jenkins dashboard and go to **Manage Jenkins** > **Configure System** >
 **SonarQube servers**. The following information can be used to properly setup SonarQube and Jenkins:
