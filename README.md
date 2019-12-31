@@ -29,6 +29,21 @@ communicate with the following applications:
 | SonarQube   | http://ci.local/sonarqube   |
 | Nexus       | http://ci.local/nexus       |
 
+### SonarQube
+
+When SonarQube is launched you will need to login with the necessary credentials. You can use the following credentials
+when SonarQube is started for the first time:
+
+| Username | Password |
+|----------|----------|
+| admin    | admin    |
+
+I highly recommend that you change the default password if you are going to use SonarQube in production or if this 
+particular SonarQube instance will be made accessible to other developers.
+
+After you have signed into SonarQube go to My **Account** > **Security** > **Generate Tokens**. Enter a new Token Name
+and hit the generate button. Be sure to copy the token because you won't be able to see it again! 
+
 ### Jenkins
 
 When Jenkins is first started you will be prompted for an administator password. You can find this password in the logs 
@@ -46,7 +61,7 @@ the following command:
 ```
 
 The command above actually runs a second command inside a sub shell and returns the output of that command.
-On a Windows OS you will therefore need to run the commands separately:
+On a Windows machine you will therefore need to run the two commands separately:
 
 ```shell script
   docker ps -q -l --filter="name=jenkins"  // output: c049d8d5ed96
@@ -54,18 +69,39 @@ On a Windows OS you will therefore need to run the commands separately:
 ```
 
 Use this password to unlock Jenkins and install the suggested plugins which the community finds most useful.
-Some additional plugins can be downloaded from **Beheer Plugins** which is accessible from the **Beheer 
-Jenkins** menu. On the plugin manager page be sure to activate the **Beschikbaar** tab and install the 
-following plugins:
+Some additional plugins can be downloaded from **Manager Jenkins** > **Manage Plugins**. On the plugin manager page 
+be sure to activate the **Available** tab and install the following plugins:
 
 | Plugin             | Version | URL
 |--------------------|---------|-------------------------------------------------------------------------------------------------------|
 | Locale             | 1.4+    | [Locale plugin](https://wiki.jenkins.io/display/JENKINS/Locale+Plugin)                                |
 | SonarQube Scanner  | 2.10+   | [SonarScanner for Jenkins](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins/) |
 
-Be sure to click the **Nu downloaden en installeren tijdens herstart** button. While installing the plugins you can 
-check the checkbox that will automatically restart Jenkins for you. The following sections are based on Jenkins whose 
-locale has been set to English.
+Simply click on the **Download now and install after restart** button. While the plugins are being installed you can 
+also check the checkbox that will automatically restart Jenkins once the plugins have been downloaded. I highly recommend 
+that you change the locale of you Jenkins instance to English. Doing so will help you to understand how to configure 
+the SonarQube Scanner.
 
+After installing both plugins head back to the Jenkins dashboard and go to **Manage Jenkins** > **Configure System** >
+**SonarQube servers**. The following information can be used to properly setup SonarQube and Jenkins:
 
+| Field      | Value                     |
+|------------|---------------------------|
+| Name       | SonarQube                 |
+| Server URL | http://ci.local/sonarqube |
 
+If you are unable to add **Server authentication token** during this process simply click the **Apply** and **Save** 
+button. After that you should be able to able to add a new token to Jenkins using the **Add** button. Use the following 
+information to add the SonarQube token to Jenkins:
+
+| Field       | Value                                                |
+|-------------|------------------------------------------------------|
+| Domain      | Global credentials (unrestricted)                    |
+| Kind        | Secret Text                                          |
+| Scope       | Global (Jenkins, nodes, items, all child items, etc) |
+| Secret      | Your SonarQube token                                 |
+| ID          | SonarQube                                            |
+| Description | SonarQube token                                      |
+ 
+Be Sure to select the SonarQube token from the **Server authentication token** field and once again click the **Apply** 
+and **Save** button.
