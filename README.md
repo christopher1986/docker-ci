@@ -42,11 +42,22 @@ I highly recommend that you change the default password if you are going to use 
 particular SonarQube instance will be made accessible to other developers.
 
 After you have signed into SonarQube go to **My Account** > **Security** > **Generate Tokens**. Enter a new token name
-and hit the generate button. Be sure to copy the token because you won't be able to see it again! 
+and hit the generate button. Be sure to copy the token because you won't be able to see it again!
+
+The final step for setting up SonarQube is by registering a webhook that will send the SonarQube quality gate status
+back to Jenkins. In order to setup a web hook go to **Administration** > **Configuration** > **Webhooks**. Hit the
+**Create** button and populate the form with the following details:
+
+| Field      | Value                                      |
+|------------|--------------------------------------------|
+| Name       | Jenkins                                    |
+| URL        | http://ci.local/jenkins/sonarqube-webhook/ |
+
+After providing the necessary information click the **Create** button to create the Jenkins webhook.
 
 ### Jenkins
 
-When Jenkins is first started you will be prompted for an administator password. You can find this password in the logs 
+When Jenkins is first started you will be prompted for an administrator password. You can find this password in the logs 
 or in `/var/jenkins_home/secrets/initialAdminPassword`. You can tail the Jenkins log using the following command:
 
 ```shell script
@@ -83,7 +94,8 @@ Jenkins locale to English will help you to setup the SonarQube Scanner without c
 your own language.
 
 After installing both plugins head back to the Jenkins dashboard and go to **Manage Jenkins** > **Configure System** >
-**SonarQube servers**. The following information can be used to properly setup SonarQube and Jenkins:
+**SonarQube servers**. Be sure to check **Enable injection of SonarQube server configuration as build environment 
+variables** and use the following details to setup SonarQube with Jenkins:
 
 | Field      | Value                     |
 |------------|---------------------------|
@@ -92,7 +104,7 @@ After installing both plugins head back to the Jenkins dashboard and go to **Man
 
 If you are unable to add **Server authentication token** during this process simply click the **Apply** and **Save** 
 button. After that you should be able to able to add a new token to Jenkins using the **Add** button. Use the following 
-information to add the SonarQube token to Jenkins:
+details to add the SonarQube token to Jenkins:
 
 | Field       | Value                                                |
 |-------------|------------------------------------------------------|
@@ -103,5 +115,18 @@ information to add the SonarQube token to Jenkins:
 | ID          | SonarQube                                            |
 | Description | SonarQube token                                      |
  
-Be Sure to select the SonarQube token from the **Server authentication token** field and once again click the **Apply** 
-and **Save** button.
+Be sure to select the newly created **SonarQube token** from the **Server authentication token** list and after that 
+click the **Apply** and **Save** button.
+
+The last and final step is to install a SonarQube scanner which can be used inside a Jenkins pipeline. From the Jenkins
+dashboard go to **Manage Jenkins** > **Global Tool Configuration** > **SonarQube Scanner** and click the **Add SonarQube Scanner**
+button. Use the following details to setup a new scanner:
+
+| Field   | Value                       |
+|---------|-----------------------------|
+| Name    | SonarQube Scanner           |
+| Version | SonarQube Scanner 4.x.x.xxx |
+
+Also select **Install automatically** and after that click the **Apply** and **Save** button.
+
+ 
