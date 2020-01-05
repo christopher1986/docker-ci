@@ -104,7 +104,7 @@ variables** and use the following details to setup SonarQube with Jenkins:
 
 If you are unable to add **Server authentication token** during this process simply click the **Apply** and **Save** 
 button. After that you should be able to able to add a new token to Jenkins using the **Add** button. Use the following 
-details to add the SonarQube token to Jenkins:
+details to add the token to Jenkins:
 
 | Field       | Value                                                |
 |-------------|------------------------------------------------------|
