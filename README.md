@@ -55,80 +55,6 @@ back to Jenkins. In order to setup a web hook go to **Administration** > **Confi
 
 After providing the necessary information click the **Create** button to create the Jenkins webhook.
 
-### Jenkins
-
-When Jenkins is first started you will be prompted for an administrator password. You can find this password in the logs 
-or in `/var/jenkins_home/secrets/initialAdminPassword`. You can tail the Jenkins log using the following command:
-
-```shell script
-  docker-compose logs -f jenkins
-```
-
-Alternatively you can use `cat` to display the password stored in initialAdminPassword file which can be done through 
-the following command:
-
-```shell script
-docker exec $(docker ps -q -l --filter="name=jenkins") cat /var/jenkins_home/secrets/initialAdminPassword
-```
-
-The command above actually runs a second command inside a sub shell and returns the output of that command.
-On a Windows machine you will therefore need to run the two commands separately:
-
-```shell script
-docker ps -q -l --filter="name=jenkins"  // output: c049d8d5ed96
-docker exec c049d8d5ed96 cat /var/jenkins_home/secrets/initialAdminPassword
-```
-
-Use this password to unlock Jenkins and install the suggested plugins which the community finds most useful.
-Some additional plugins can be downloaded from **Manage Jenkins** > **Manage Plugins**. On the plugin page be
-sure to activate the **Available** tab and install the following plugins:
-
-| Plugin             | Version | URL
-|--------------------|---------|-------------------------------------------------------------------------------------------------------|
-| Locale             | 1.4+    | [Locale plugin](https://wiki.jenkins.io/display/JENKINS/Locale+Plugin)                                |
-| SonarQube Scanner  | 2.10+   | [SonarScanner for Jenkins](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins/) |
-
-Simply click on the **Download now and install after restart** button. While the plugins are being installed you can 
-also check the checkbox that will automatically restart Jenkins once the plugins have been downloaded. Changing the
-Jenkins locale to English will help you to setup the SonarQube Scanner without constantly translating this guide to
-your own language.
-
-After installing both plugins head back to the Jenkins dashboard and go to **Manage Jenkins** > **Configure System** >
-**SonarQube servers**. Be sure to check **Enable injection of SonarQube server configuration as build environment 
-variables** and use the following details to setup SonarQube with Jenkins:
-
-| Field      | Value                     |
-|------------|---------------------------|
-| Name       | SonarQube                 |
-| Server URL | http://ci.local/sonarqube |
-
-If you are unable to add **Server authentication token** during this process simply click the **Apply** and **Save** 
-button. After that you should be able to able to add a new token to Jenkins using the **Add** button. Use the following 
-details to add the token to Jenkins:
-
-| Field       | Value                                                |
-|-------------|------------------------------------------------------|
-| Domain      | Global credentials (unrestricted)                    |
-| Kind        | Secret Text                                          |
-| Scope       | Global (Jenkins, nodes, items, all child items, etc) |
-| Secret      | Your SonarQube token                                 |
-| ID          | SonarQube                                            |
-| Description | SonarQube token                                      |
- 
-Be sure to select the newly created **SonarQube token** from the **Server authentication token** list and after that 
-click the **Apply** and **Save** button.
-
-The last and final step is to install a SonarQube scanner which can be used inside a Jenkins pipeline. From the Jenkins
-dashboard go to **Manage Jenkins** > **Global Tool Configuration** > **SonarQube Scanner** and click the **Add SonarQube Scanner**
-button. Use the following details to setup a new scanner:
-
-| Field   | Value                       |
-|---------|-----------------------------|
-| Name    | SonarQube Scanner           |
-| Version | SonarQube Scanner 4.x.x.xxx |
-
-Also select **Install automatically** and after that click the **Apply** and **Save** button.
-
 ### Sonatype Nexus
 
 When Nexus is first started you will be prompted for an administrator password. You can find this password in the logs 
@@ -192,5 +118,92 @@ to your composer.json file:
 }
 ```
 
+### Jenkins
+
+When Jenkins is first started you will be prompted for an administrator password. You can find this password in the logs 
+or in `/var/jenkins_home/secrets/initialAdminPassword`. You can tail the Jenkins log using the following command:
+
+```shell script
+  docker-compose logs -f jenkins
+```
+
+Alternatively you can use `cat` to display the password stored in initialAdminPassword file which can be done through 
+the following command:
+
+```shell script
+docker exec $(docker ps -q -l --filter="name=jenkins") cat /var/jenkins_home/secrets/initialAdminPassword
+```
+
+The command above actually runs a second command inside a sub shell and returns the output of that command.
+On a Windows machine you will therefore need to run the two commands separately:
+
+```shell script
+docker ps -q -l --filter="name=jenkins"  // output: c049d8d5ed96
+docker exec c049d8d5ed96 cat /var/jenkins_home/secrets/initialAdminPassword
+```
+
+Use this password to unlock Jenkins and install the suggested plugins which the community finds most useful.
+Some additional plugins can be downloaded from **Manage Jenkins** > **Manage Plugins**. On the plugin page be
+sure to activate the **Available** tab and install the following plugins:
+
+| Plugin             | Version | URL
+|--------------------|---------|-------------------------------------------------------------------------------------------------------|
+| Locale             | 1.4+    | [Locale plugin](https://wiki.jenkins.io/display/JENKINS/Locale+Plugin)                                |
+| SonarQube Scanner  | 2.10+   | [SonarScanner for Jenkins](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins/) |
+
+Simply click on the **Download now and install after restart** button. While the plugins are being installed you can 
+also check the checkbox that will automatically restart Jenkins once the plugins have been downloaded. Changing the
+Jenkins locale to English will help you to setup the SonarQube Scanner without constantly translating this guide to
+your own language.
+
+After installing both plugins head back to the Jenkins dashboard and go to **Manage Jenkins** > **Configure System** >
+**SonarQube servers**. Be sure to check **Enable injection of SonarQube server configuration as build environment 
+variables** and use the following details to setup SonarQube with Jenkins:
+
+| Field      | Value                     |
+|------------|---------------------------|
+| Name       | SonarQube                 |
+| Server URL | http://ci.local/sonarqube |
+
+If you are unable to add **Server authentication token** during this process simply click the **Apply** and **Save** 
+button. After that you should be able to able to add a new token to Jenkins using the **Add** button. Use the following 
+details to add the token to Jenkins:
+
+| Field       | Value                                                |
+|-------------|------------------------------------------------------|
+| Domain      | Global credentials (unrestricted)                    |
+| Kind        | Secret Text                                          |
+| Scope       | Global (Jenkins, nodes, items, all child items, etc) |
+| Secret      | Your SonarQube token                                 |
+| ID          | SonarQube                                            |
+| Description | SonarQube token                                      |
  
- 
+Be sure to select the newly created **SonarQube token** from the **Server authentication token** list and after that 
+click the **Apply** and **Save** button.
+
+The next step is to install a SonarQube scanner which can be used inside a Jenkins pipeline. From the Jenkins
+dashboard go to **Manage Jenkins** > **Global Tool Configuration** > **SonarQube Scanner** and click the **Add SonarQube Scanner**
+button. Use the following details to setup a new scanner:
+
+| Field   | Value                       |
+|---------|-----------------------------|
+| Name    | SonarQube Scanner           |
+| Version | SonarQube Scanner 4.x.x.xxx |
+
+Also select **Install automatically** and after that click the **Apply** and **Save** button.
+
+The last thing to do is to add the SonaType Nexus credentials to Jenkins. From the Jenkins dashboard go to
+**Credentials** > **System** > **Global credentials (unrestricted)** and click the**Add credentials** menu item.
+Use the following details to setup the credentials:
+
+| Field       | Value                                                |
+|-------------|------------------------------------------------------|
+| Kind        | Username with password                               |
+| Scope       | Global (Jenkins, nodes, items, all child items, etc) |
+| Username    | Your Nexus username                                  |
+| Password    | Your Nexus password                                  |
+| ID          | nexus-creds                                          |
+| Description | Nexus repository manager                             |
+
+These credentials will allow your Jenkins pipeline to authenticate with Nexus without actually exposing your username
+and password inside your Jenkinsfile.
