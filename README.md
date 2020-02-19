@@ -14,7 +14,7 @@ A containerized environment which can be used for projects developed and maintai
 Start the containers declared in the docker-compose.yml with the following command:
 
 ```shell script
-  docker-compose up -d
+docker-compose up -d
 ```
 
 This command must be run with administrator privileges from the directory containing the docker-compose file or 
@@ -124,7 +124,7 @@ When Jenkins is first started you will be prompted for an administrator password
 or in `/var/jenkins_home/secrets/initialAdminPassword`. You can tail the Jenkins log using the following command:
 
 ```shell script
-  docker-compose logs -f jenkins
+docker-compose logs -f jenkins
 ```
 
 Alternatively you can use `cat` to display the password stored in initialAdminPassword file which can be done through 
