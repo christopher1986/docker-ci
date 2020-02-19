@@ -20,7 +20,7 @@ Start the containers declared in the docker-compose.yml with the following comma
 This command must be run with administrator privileges from the directory containing the docker-compose file or 
 as an alternative you can add the current users to the `docker` group.
 
-After starting the containers be sure to add `ci.local` to your hosts file. This host entry will allow you to 
+After starting the containers be sure to add `127.0.0.1 ci.local` to your hosts file. This host entry will allow you to 
 communicate with the following applications:
 
 | Application | URL                         |
