@@ -57,9 +57,9 @@ After providing the necessary information click the **Create** button to create 
 
 ### Sonatype Nexus
 
-When Nexus is first started you will be prompted for an administrator password. You can find this password in the logs 
-or in `/nexus-data/admin.password`. you can use `cat` to display the password stored in initialAdminPassword file which can be done through 
-the following command:
+When Nexus is first started you will be prompted for an administrator password. This password is located in 
+`/nexus-data/admin.password` file. You can use `cat` to display the password stored in admin.password file 
+which can be done through the following command:
 
 ```shell script
 docker exec $(docker ps -q -l --filter="name=nexus") cat /nexus-data/admin.password
