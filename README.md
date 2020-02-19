@@ -57,7 +57,7 @@ After providing the necessary information click the **Create** button to create 
 
 ### Sonatype Nexus
 
-When Nexus is launched you will be prompted for an administrator password. This password is located in 
+When Nexus is launched you will be prompted for an administrator password. This password is located in the
 `/nexus-data/admin.password` file. You can use `cat` to display the password stored in admin.password file 
 which can be done through the following command:
 
