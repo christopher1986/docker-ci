@@ -68,15 +68,15 @@ Alternatively you can use `cat` to display the password stored in initialAdminPa
 the following command:
 
 ```shell script
-  docker exec $(docker ps -q -l --filter="name=jenkins") cat /var/jenkins_home/secrets/initialAdminPassword
+docker exec $(docker ps -q -l --filter="name=jenkins") cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
 The command above actually runs a second command inside a sub shell and returns the output of that command.
 On a Windows machine you will therefore need to run the two commands separately:
 
 ```shell script
-  docker ps -q -l --filter="name=jenkins"  // output: c049d8d5ed96
-  docker exec c049d8d5ed96 cat /var/jenkins_home/secrets/initialAdminPassword
+docker ps -q -l --filter="name=jenkins"  // output: c049d8d5ed96
+docker exec c049d8d5ed96 cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
 Use this password to unlock Jenkins and install the suggested plugins which the community finds most useful.
@@ -129,4 +129,68 @@ button. Use the following details to setup a new scanner:
 
 Also select **Install automatically** and after that click the **Apply** and **Save** button.
 
+### Sonatype Nexus
+
+When Nexus is first started you will be prompted for an administrator password. You can find this password in the logs 
+or in `/nexus-data/admin.password`. you can use `cat` to display the password stored in initialAdminPassword file which can be done through 
+the following command:
+
+```shell script
+docker exec $(docker ps -q -l --filter="name=nexus") cat /nexus-data/admin.password
+```
+
+The command above actually runs a second command inside a sub shell and returns the output of that command.
+On a Windows machine you will therefore need to run the two commands separately:
+
+```shell script
+docker ps -q -l --filter="name=nexus"  // output: 4f673c1791f5
+docker exec c049d8d5ed96 cat /nexus-data/admin.password
+```
+
+After acquiring the password you can go to the Nexus URL and login (username: admin, password see admin.password file).
+Be sure to change the default password and use this password the next time you need to login into Nexus.
+
+The next step is to setup the necessary repositories needed with your PHP project. Repositories can be created through
+the [Server administration and configuration](http://ci.local/nexus/#admin/repository) menu. From the **Manage repositories**
+menu click the the **Create repository** button. The first repository to create is a **composer (proxy)** with the following
+details:
+
+| Field          | Value                  |
+|----------------|------------------------|
+| Name           | packagist              |
+| Remote storage | https://packagist.org/ |
+| Blob store     | default                |
+ 
+The last repository to add is a **composer (hosted)** with the following details:
+ 
+| Field          | Value    |
+|----------------|----------|
+| Name           | composer |
+| Blob store     | default  |
+
+The next step is to configure your PHP project with the Nexus repositories. You can simply add the following details
+to your composer.json file:
+
+```json
+{
+  "config": {
+    "secure-http": false
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://ci.local/nexus/repository/packagist"
+    },
+    {
+      "type": "composer",
+      "url": "http://ci.local/nexus/repository/composer"
+    },
+    {
+      "packagist.org": false
+    }
+  ]
+}
+```
+
+ 
  
