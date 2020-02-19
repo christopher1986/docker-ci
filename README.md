@@ -144,10 +144,10 @@ On a Windows machine you will therefore need to run the two commands separately:
 
 ```shell script
 docker ps -q -l --filter="name=nexus"  // output: 4f673c1791f5
-docker exec c049d8d5ed96 cat /nexus-data/admin.password
+docker exec 4f673c1791f5 cat /nexus-data/admin.password
 ```
 
-After acquiring the password you can go to the Nexus URL and login (username: admin, password see admin.password file).
+After acquiring the password you can go to the Nexus URL and login (username: admin, password: see admin.password file).
 Be sure to change the default password and use this password the next time you need to login into Nexus.
 
 The next step is to setup the necessary repositories needed with your PHP project. Repositories can be created through
