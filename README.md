@@ -57,7 +57,7 @@ After providing the necessary information click the **Create** button to create 
 
 ### Sonatype Nexus
 
-When Nexus is first started you will be prompted for an administrator password. This password is located in 
+When Nexus is launched you will be prompted for an administrator password. This password is located in 
 `/nexus-data/admin.password` file. You can use `cat` to display the password stored in admin.password file 
 which can be done through the following command:
 
@@ -74,9 +74,9 @@ docker exec 4f673c1791f5 cat /nexus-data/admin.password
 ```
 
 After acquiring the password you can go to the Nexus URL and login (username: admin, password: see admin.password file).
-Be sure to change the default password and use this password the next time you need to login into Nexus.
+Be sure to change the default password and use this password the next time you use Nexus.
 
-The next step is to setup the necessary repositories needed with your PHP project. Repositories can be created through
+The next step is to setup the necessary repositories needed for your PHP project. Repositories can be created through
 the [Server administration and configuration](http://ci.local/nexus/#admin/repository) menu. From the **Manage repositories**
 menu click the the **Create repository** button. The first repository to create is a **composer (proxy)** with the following
 details:
